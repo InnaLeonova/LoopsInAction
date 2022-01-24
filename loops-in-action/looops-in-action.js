@@ -59,3 +59,47 @@ function displayUserData() {
   }
 }
 displayUserDataButtonElement.addEventListener('click', displayUserData);
+
+//Statisctis Roll the Dice
+
+const rollDiceButtonElement = document.querySelector('#statistics button');
+// console.dir(rollDiceButtonElement);
+
+function rollDice() {
+  return Math.floor(Math.random() * 6) + 1;
+  // return 3;
+}
+
+function deriveNumberOfDiceRole() {
+  const targetNumberInputElement =
+    document.getElementById('user-target-number');
+  const diceRollsListElement = document.getElementById('dice-rolls');
+
+  const enteredNumber = targetNumberInputElement.value;
+  console.log(enteredNumber);
+  diceRollsListElement.innerHTML = '';
+  let hasRolledTargetNumber = false;
+  let numberOfRolls = 0;
+  while (!hasRolledTargetNumber) {
+    const rolledNumber = rollDice();
+    // if (rolledNumber == enteredNumber){
+    //     hasRolledTargetNumber = true;
+    // }
+
+    numberOfRolls++;
+    const newRollListItemElement = document.createElement('li');
+    const outputText = 'Roll ' + numberOfRolls + ': ' + rolledNumber;
+    newRollListItemElement.textContent = outputText;
+    diceRollsListElement.append(newRollListItemElement);
+    hasRolledTargetNumber = rolledNumber == enteredNumber;
+  }
+  console.log(enteredNumber);
+  const outputTotalRollsElement = document.getElementById('output-total-rolls');
+  const outputTargetNumberElement = document.getElementById(
+    'output-target-number'
+  );
+  outputTargetNumberElement.textContent = enteredNumber;
+  outputTotalRollsElement.textContent = numberOfRolls;
+}
+
+rollDiceButtonElement.addEventListener('click', deriveNumberOfDiceRole);
